@@ -20,6 +20,8 @@ uv sync --extra dev --directory test-cash-register
 > uv sync --extra dev
 > ```
 
+Дополнительно настроен мониторинг, поэтому можно просматривать логи через [Grafana](http://localhost:3000).
+
 ## Структура кода
 ![*code-diagram*](https://github.com/emptybutton/test-cash-register/blob/main/assets/code.drawio.png?raw=true)
 

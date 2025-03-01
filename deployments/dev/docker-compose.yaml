@@ -6,7 +6,7 @@ services:
       context: ../../
       dockerfile: deployments/dev/backend/Dockerfile
       tags:
-        - "test-cash-register:dev"
+        - "test-cash-register-backend:dev"
     container_name: test-cash-register-backend
     labels:
       deployment: dev
@@ -39,6 +39,14 @@ services:
       start_period: 2m
       start_interval: 1s
       interval: 30s
+    logging:
+      driver: "loki"
+      options:
+        loki-url: "http://localhost:3100/loki/api/v1/push"
+        loki-batch-size: "100"
+        loki-retries: 2
+        loki-max-backoff: 1000ms
+        loki-timeout: 1s
 
   postgres:
     image: postgres:16.3-alpine3.19
@@ -56,6 +64,32 @@ services:
       start_period: 1m
       start_interval: 1s
       interval: 5s
+
+  loki:
+    container_name: test-cash-register-loki
+    labels:
+      deployment: dev
+    image: grafana/loki:latest
+    environment:
+      TZ: ${SYSTEM_TIMEZONE:-Europe/Moscow}
+    ports:
+      - 3100:3100
+    command: -config.file=/etc/loki/local-config.yaml
+
+  grafana:
+    container_name: test-cash-register-grafana
+    labels:
+      deployment: dev
+    image: grafana/grafana:latest
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - TZ=${SYSTEM_TIMEZONE:-Europe/Moscow}
+    ports:
+      - 3000:3000
 
 volumes:
   backend-data:

@@ -19,6 +19,7 @@ dependencies = [
     "psycopg[binary]==3.2.5",
     "weasyprint==52.5",
     "qrcode[pil]==8.0",
+    "structlog==25.1.0",
 ]
 
 [project.optional-dependencies]

@@ -1,12 +1,12 @@
-from collections.abc import Iterable
 from decimal import Decimal
 
+from cash_register.checks.details.logger import Logger
 from cash_register.items.models import Item
 
 
 def items_and_item_price_sum_when(
-    *, item_ids: list[int]
-) -> tuple[Iterable[Item], Decimal]:
+    *, item_ids: list[int], log: Logger
+) -> tuple[tuple[Item, ...], Decimal]:
     stmt = """
         SELECT
             items_item.id,
@@ -20,11 +20,16 @@ def items_and_item_price_sum_when(
         ) AS price_sum_rel
         WHERE items_item.id = ANY(%s)
         """
-    items_with_price_sum = Item.objects.raw(stmt, [item_ids, item_ids])
+    items_with_price_sum = tuple(Item.objects.raw(stmt, [item_ids, item_ids]))
 
     if items_with_price_sum:
         item_price_sum = items_with_price_sum[0].price_sum
     else:
         item_price_sum = Decimal("0")
 
+    log.debug(
+        "check data received",
+        item_price_sum=item_price_sum,
+        items_with_price_sum=items_with_price_sum,
+    )
     return items_with_price_sum, item_price_sum
