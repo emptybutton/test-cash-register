@@ -8,11 +8,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: ruff
-        run: docker compose -f deployments/dev/docker-compose.yaml run backend ruff check src
+        run: |
+          docker plugin install grafana/loki-docker-driver:2.9.4 --alias loki --grant-all-permissions
+          docker compose -f deployments/dev/docker-compose.yaml run backend ruff check src
 
   mypy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: mypy
-        run: docker compose -f deployments/dev/docker-compose.yaml run backend mypy src
+        run: |
+          docker plugin install grafana/loki-docker-driver:2.9.4 --alias loki --grant-all-permissions
+          docker compose -f deployments/dev/docker-compose.yaml run backend mypy src
