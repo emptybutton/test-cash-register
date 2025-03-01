@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>CHECK</title>
+    </head>
+    <body>
+        <pre>
+ООО "{{ company_name }}"
+Добро пожаловать
+ККМ {{ kkm }}
+ИНН {{ inn }}
+{{ creation_time.strftime("%d-%m-%Y %H:%M") }} СИС.
+ АДМИ
+{% for item in items %}
+{{ item.title }}
+ 1           ={{ item.price }}
+{% endfor %}
+
+<b>ИТОГ</b>
+        <b>{{ item_total_price }}</b>
+НАЛИЧНЫМИ    ={{ item_total_price }}
+*****************************************
+{{ check_number }}
+        </pre>
+    </body>
+</html>

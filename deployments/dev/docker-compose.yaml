@@ -1,0 +1,58 @@
+name: test-cash-register
+
+services:
+  backend:
+    build:
+      context: ../../
+      dockerfile: deployments/dev/backend/Dockerfile
+      tags:
+        - "test-cash-register:dev"
+    container_name: test-cash-register-backend
+    volumes:
+      - ../..:/app
+      - backend-data:/run/app
+    ports:
+      - 8000:8000
+    environment:
+      SECRET_KEY: secret-key
+      DEBUG: true
+      INTERNAL_HOST: backend
+      EXTERNAL_HOST_URL_PREFIX: http://localhost:8000
+
+      POSTGRES_DB_NAME: root
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+
+      CHECK_COMPANY_NAME: SUPER-COMPANY-NAME
+      CHECK_INN: "*INN*"
+      CHECK_KKM: "*KKM*"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: python src/manage.py runserver 0.0.0.0:8000
+    healthcheck:
+      test: wget backend:8000/healthcheck -q -O /dev/null
+      start_period: 2m
+      start_interval: 1s
+      interval: 30s
+
+  postgres:
+    image: postgres:16.3-alpine3.19
+    container_name: test-cash-register-postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: root
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    healthcheck:
+      test: pg_isready -d root -U root
+      start_period: 1m
+      start_interval: 1s
+      interval: 5s
+
+volumes:
+  backend-data: null
+  postgres-data: null

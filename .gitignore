@@ -169,3 +169,10 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Custom uv
+.python-version
+
+# Custom app
+media/*
+!media/.gitkeep
