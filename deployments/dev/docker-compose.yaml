@@ -8,6 +8,8 @@ services:
       tags:
         - "test-cash-register:dev"
     container_name: test-cash-register-backend
+    labels:
+      deployment: dev
     volumes:
       - ../..:/app
       - backend-data:/run/app
@@ -41,6 +43,8 @@ services:
   postgres:
     image: postgres:16.3-alpine3.19
     container_name: test-cash-register-postgres
+    labels:
+      deployment: dev
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
@@ -54,5 +58,10 @@ services:
       interval: 5s
 
 volumes:
-  backend-data: null
-  postgres-data: null
+  backend-data:
+    labels:
+      deployment: dev
+
+  postgres-data:
+    labels:
+      deployment: dev
