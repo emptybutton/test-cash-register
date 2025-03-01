@@ -1,5 +1,5 @@
 [project]
-name = "test-cash-register"
+name = "cash-register"
 version = "0.1.0"
 description = "Тестовое задание для компании Гроссбит"
 authors = [
@@ -30,6 +30,13 @@ dev = [
     "types-qrcode==8.0.0.20241004",
 ]
 
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+cash-register = "cash_register.manage:main"
+
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]
 
@@ -38,7 +45,7 @@ module = ["weasyprint.*"]
 follow_untyped_imports = true
 
 [tool.django-stubs]
-django_settings_module = "config.settings"
+django_settings_module = "cash_register.config.settings"
 
 [tool.ruff]
 src = ["src"]
@@ -59,4 +66,4 @@ exclude = ["manage.py", "*/migrations/*"]
 lines-after-imports = 2
 
 [tool.ruff.lint.per-file-ignores]
-"src/config/settings.py" = ["S101"]
+"src/cash_register/config/settings.py" = ["S101"]

@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 from decimal import Decimal
 
-from items.models import Item
+from cash_register.items.models import Item
 
 
 def items_and_item_price_sum_when(

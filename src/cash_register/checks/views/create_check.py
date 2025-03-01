@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.serializers import IntegerField, ListField, Serializer
 from rest_framework.views import APIView
 
-from checks.operations.create_check import create_check
+from cash_register.checks.operations.create_check import create_check
 
 
 class InputDataSerializer(Serializer[object]):

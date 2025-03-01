@@ -1,6 +1,6 @@
 from django.urls import path
 
-from checks.views.create_check import CreateCheckView
+from cash_register.checks.views.create_check import CreateCheckView
 
 
 app_name = "checks"

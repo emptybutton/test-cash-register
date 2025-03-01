@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 
 
-class MonitoringConfig(AppConfig):
+class ChecksConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "monitoring"
+    name = "cash_register.checks"
+    label = "checks"

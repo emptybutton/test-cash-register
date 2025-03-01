@@ -2,12 +2,14 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from uuid import uuid4
 
-from checks.details.check_html import check_html_when
-from checks.details.check_storage import (
+from cash_register.checks.details.check_html import check_html_when
+from cash_register.checks.details.check_storage import (
     png_qrcode_to_stored_check_when,
     store_check,
 )
-from checks.details.item_storage import items_and_item_price_sum_when
+from cash_register.checks.details.item_storage import (
+    items_and_item_price_sum_when,
+)
 
 
 @dataclass(kw_only=True, frozen=True, slots=True)

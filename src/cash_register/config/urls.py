@@ -6,9 +6,9 @@ from django.urls import URLPattern, URLResolver, include, path
 
 urlpatterns: list[URLPattern | URLResolver] = [
     path("admin/", admin.site.urls),
-    path("", include("checks.urls", namespace="checks")),
-    path("", include("items.urls", namespace="items")),
-    path("", include("monitoring.urls", namespace="monitoring")),
+    path("", include("cash_register.checks.urls", namespace="checks")),
+    path("", include("cash_register.items.urls", namespace="items")),
+    path("", include("cash_register.monitoring.urls", namespace="monitoring")),
 ]
 
 if settings.DEBUG:

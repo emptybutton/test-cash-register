@@ -31,7 +31,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: python src/manage.py runserver 0.0.0.0:8000
+    command: cash-register runserver 0.0.0.0:8000
     healthcheck:
       test: wget backend:8000/healthcheck -q -O /dev/null
       start_period: 2m

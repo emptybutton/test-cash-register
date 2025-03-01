@@ -1,6 +1,6 @@
 from django.urls import path
 
-from monitoring.views import HealthcheckView
+from cash_register.monitoring.views import HealthcheckView
 
 
 app_name = "monitoring"

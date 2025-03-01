@@ -4,8 +4,8 @@ from decimal import Decimal
 
 from django.conf import settings
 
-from checks.jinja2 import jinja2_check_tempate
-from items.models import Item
+from cash_register.checks.jinja2 import jinja2_check_tempate
+from cash_register.items.models import Item
 
 
 def check_html_when(

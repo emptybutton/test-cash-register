@@ -5,7 +5,7 @@ import typenv
 
 _env = typenv.Env()
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 
 
 # App access
@@ -40,9 +40,9 @@ INSTALLED_APPS = [
 
     "rest_framework",
 
-    "checks",
-    "items",
-    "monitoring",
+    "cash_register.checks",
+    "cash_register.items",
+    "cash_register.monitoring",
 ]
 
 MIDDLEWARE = [
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "config.urls"
+ROOT_URLCONF = "cash_register.config.urls"
 
 TEMPLATES = [
     {
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "config.wsgi.application"
+WSGI_APPLICATION = "cash_register.config.wsgi.application"
 
 
 # Database
